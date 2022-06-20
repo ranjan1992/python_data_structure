@@ -13,32 +13,86 @@ class BinaryTreeNode:
 
 
 
+def nodesAtDistanceKHelper(root, target, k) :
+    if root is None :
+        return -1
 
 
-        
-def diameterOfBinaryTree(root) :
-    a,b=helper(root)
-    return b
-    
-    
+    if root.data == target :
+        nodesAtDistanceKDown(root, k)
+        return 0
 
-def helper(root):
-    if root is None:
-        return 0,0
-    lh,ld=helper(root.left)
-    rh,rd=helper(root.right)
-    h=1+max(lh,rh)
-    a=max(lh+rh+1,max(ld,rd))
-    return h,a
-    
 
+    leftD = nodesAtDistanceKHelper(root.left, target, k)
+    if leftD != -1 :
+        if (leftD + 1) == k :
+            print(root.data)
+        else :
+            nodesAtDistanceKDown(root.right, k - leftD - 2)
     
 
+        return 1 + leftD
+
+
+    rightD = nodesAtDistanceKHelper(root.right, target, k);
+    if rightD != -1 :
+        if (rightD + 1) == k :
+            print(root.data)
+        else :
+            nodesAtDistanceKDown(root.left, k - rightD - 2)
+
+
+        return 1 + rightD
+
+    return -1
+
+
+def nodesAtDistanceKDown(root, k) :
+    if root is None : 
+        return
+
+    if k == 0 :
+        print(root.data)
+        return
+
+    
+    nodesAtDistanceKDown(root.left, k - 1)
+    nodesAtDistanceKDown(root.right, k - 1)
+
+
+def nodesAtDistanceK(root, node, k) :
+    nodesAtDistanceKHelper(root, node, k)
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 
 #Taking level-order input using fast I/O method
@@ -80,7 +134,7 @@ def takeInput():
 
     
 def printLevelWise(root):
-    if root==None:
+    if root is None:
         return
 
     inputQ = queue.Queue()
@@ -104,4 +158,9 @@ def printLevelWise(root):
 
 # Main
 root = takeInput()
-print(diameterOfBinaryTree(root))
+target_k = stdin.readline().strip().split(" ")
+
+target = int(target_k[0])
+k = int(target_k[1])
+
+nodesAtDistanceK(root, target, k)

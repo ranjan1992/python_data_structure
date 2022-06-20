@@ -5,6 +5,11 @@ setrecursionlimit(10 ** 6)
 
 
 #Following is the structure used to represent the Binary Tree Node
+MIN_VALUE = -9999999999
+MAX_VALUE = 9999999999
+
+
+#Following is the structure used to represent the Binary Tree Node
 class BinaryTreeNode:
     def __init__(self, data):
         self.data = data
@@ -12,31 +17,62 @@ class BinaryTreeNode:
         self.right = None
 
 
+class Pair :
+
+	def __init__(self, minimum, maximum) :
+		self.minimum = minimum
+		self.maximum = maximum
 
 
 
-        
-def diameterOfBinaryTree(root) :
-    a,b=helper(root)
-    return b
+def getMinAndMax(root) :
+
+	if root is None :
+		return Pair(MAX_VALUE, MIN_VALUE)
+
+
+	leftPair = getMinAndMax(root.left)
+	rightPair = getMinAndMax(root.right)
+
+	minimum = min(root.data, leftPair.minimum, rightPair.minimum)
+	maximum = max(root.data, leftPair.maximum, rightPair.maximum)
+
+	return Pair(minimum, maximum)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
-    
-
-def helper(root):
-    if root is None:
-        return 0,0
-    lh,ld=helper(root.left)
-    rh,rd=helper(root.right)
-    h=1+max(lh,rh)
-    a=max(lh+rh+1,max(ld,rd))
-    return h,a
-    
-
-    
-
-
-
-
 
 
 
@@ -80,7 +116,7 @@ def takeInput():
 
     
 def printLevelWise(root):
-    if root==None:
+    if root is None:
         return
 
     inputQ = queue.Queue()
@@ -104,4 +140,6 @@ def printLevelWise(root):
 
 # Main
 root = takeInput()
-print(diameterOfBinaryTree(root))
+
+pair = getMinAndMax(root)
+print(str(str(pair.minimum) + " " + str(pair.maximum)))

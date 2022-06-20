@@ -12,27 +12,46 @@ class BinaryTreeNode:
         self.right = None
 
 
+def insertDuplicateNode(root):
+	if root is None :
+		return
+
+	newNode = BinaryTreeNode(root.data)
+	rootLeft = root.left
+
+	root.left = newNode
+	newNode.left = rootLeft
+
+	insertDuplicateNode(rootLeft)
+	insertDuplicateNode(root.right)
 
 
 
-        
-def diameterOfBinaryTree(root) :
-    a,b=helper(root)
-    return b
-    
-    
 
-def helper(root):
-    if root is None:
-        return 0,0
-    lh,ld=helper(root.left)
-    rh,rd=helper(root.right)
-    h=1+max(lh,rh)
-    a=max(lh+rh+1,max(ld,rd))
-    return h,a
-    
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -80,7 +99,7 @@ def takeInput():
 
     
 def printLevelWise(root):
-    if root==None:
+    if root is None:
         return
 
     inputQ = queue.Queue()
@@ -104,4 +123,6 @@ def printLevelWise(root):
 
 # Main
 root = takeInput()
-print(diameterOfBinaryTree(root))
+
+insertDuplicateNode(root)
+printLevelWise(root)

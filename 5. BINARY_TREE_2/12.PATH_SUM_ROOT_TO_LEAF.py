@@ -13,26 +13,55 @@ class BinaryTreeNode:
 
 
 
+def rootToLeafPathsSumToKHelper(root, k, path, currSum) :
+    if root is None :
+        return
+
+    if (root.left is None) and (root.right is None) :
+        currSum += root.data
+
+        if currSum == k :
+            print(str(path + str(root.data) + " ").lstrip())
+
+        return
 
 
-        
-def diameterOfBinaryTree(root) :
-    a,b=helper(root)
-    return b
-    
-    
+    rootToLeafPathsSumToKHelper(root.left, k, str(path + str(root.data) + " "), (currSum + root.data))
+    rootToLeafPathsSumToKHelper(root.right, k, str(path + str(root.data) + " "), (currSum + root.data))
 
-def helper(root):
-    if root is None:
-        return 0,0
-    lh,ld=helper(root.left)
-    rh,rd=helper(root.right)
-    h=1+max(lh,rh)
-    a=max(lh+rh+1,max(ld,rd))
-    return h,a
-    
 
-    
+
+def rootToLeafPathsSumToK(root, k):
+    rootToLeafPathsSumToKHelper(root, k, "", 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -80,7 +109,7 @@ def takeInput():
 
     
 def printLevelWise(root):
-    if root==None:
+    if root is None:
         return
 
     inputQ = queue.Queue()
@@ -104,4 +133,5 @@ def printLevelWise(root):
 
 # Main
 root = takeInput()
-print(diameterOfBinaryTree(root))
+k = int(stdin.readline().strip())
+rootToLeafPathsSumToK(root, k)

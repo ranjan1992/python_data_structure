@@ -12,34 +12,41 @@ class BinaryTreeNode:
         self.right = None
 
 
+def printLevelWise(root):
+    if root is None :
+        return
 
+    pendingNodes = queue.Queue()
+    pendingNodes.put(root)
+    pendingNodes.put(None)
 
-
-        
-def diameterOfBinaryTree(root) :
-    a,b=helper(root)
-    return b
+    while not pendingNodes.empty(): 
+        frontNode = pendingNodes.get()
     
-    
-
-def helper(root):
-    if root is None:
-        return 0,0
-    lh,ld=helper(root.left)
-    rh,rd=helper(root.right)
-    h=1+max(lh,rh)
-    a=max(lh+rh+1,max(ld,rd))
-    return h,a
-    
-
-    
-
-
-
-
+        if frontNode is None :
+            print()
+            
+            if not pendingNodes.empty() :
+                pendingNodes.put(None)
+                
+        else :
+            print(frontNode.data, end = " ")
+            
+            if frontNode.left is not None :
+                pendingNodes.put(frontNode.left)
+                
+                
+            if frontNode.right is not None :
+                pendingNodes.put(frontNode.right)
 
 
 
+
+
+
+
+
+                
 
 #Taking level-order input using fast I/O method
 def takeInput():
@@ -78,30 +85,7 @@ def takeInput():
 
     return root
 
-    
-def printLevelWise(root):
-    if root==None:
-        return
-
-    inputQ = queue.Queue()
-    outputQ = queue.Queue()
-    inputQ.put(root)
-
-    while not inputQ.empty():
-       
-        while not inputQ.empty():
-       
-            curr = inputQ.get()
-            print(curr.data, end=' ')
-            if curr.left!=None:
-                outputQ.put(curr.left)
-            if curr.right!=None:
-                outputQ.put(curr.right)
-       
-        print()
-        inputQ, outputQ = outputQ, inputQ
-
 
 # Main
 root = takeInput()
-print(diameterOfBinaryTree(root))
+printLevelWise(root)
