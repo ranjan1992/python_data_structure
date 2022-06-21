@@ -24,29 +24,11 @@ def treeInput():
     if rootData == -1:
         return None
     root= BinaryTreeNode(rootData)
-    leftTree= treeInput()
-    rightTree= treeInput()
+    leftTree= treeInput() # recursion 
+    rightTree= treeInput()  # recursion
     root.left= leftTree
     root.right= rightTree
     return root
 
-
-def nodeGreaterX(root,x):
-    if root is None:
-        return 0
-    count=0
-
-    if root.data>x:
-        return 1
-    if root.left !=None:
-        count=count+ nodeGreaterX(root.left,x)
-    
-    if root.right != None:
-        count= count+ nodeGreaterX(root.right,x)
-    
-    return count
-
-
 root= treeInput()
-print(nodeGreaterX(root, 9))
-# printTreeDetailed(root)
+printTreeDetailed(root)

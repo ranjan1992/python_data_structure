@@ -38,5 +38,5 @@ def height(root):
     
 
 root= treeInput()
-print('The height of the Binary Tree is ',height(root))
+print('The height of the Binary Tree is ', height(root))
 # printTreeDetailed(root)

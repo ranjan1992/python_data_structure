@@ -43,5 +43,5 @@ def isNodePresent(root,x):
 
 
 root= treeInput()
-print('The node is', isNodePresent(root,1))
+print('The node is', isNodePresent(root,9))
 # printTreeDetailed(root)

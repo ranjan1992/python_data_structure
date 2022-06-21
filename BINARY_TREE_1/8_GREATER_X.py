@@ -30,5 +30,23 @@ def treeInput():
     root.right= rightTree
     return root
 
+
+def nodeGreaterX(root,x):
+    if root is None:
+        return 0
+    count=0
+
+    if root.data>x:
+        count=1
+    if root.left !=None:
+        count=count+ nodeGreaterX(root.left,x)
+    
+    if root.right != None:
+        count= count+ nodeGreaterX(root.right,x)
+    
+    return count
+
+
 root= treeInput()
-printTreeDetailed(root)
+print("Number of Nodes greater than 2 is ",nodeGreaterX(root, 2))
+# printTreeDetailed(root)
